@@ -180,19 +180,15 @@ function App() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label htmlFor="prenom" className="block mb-2 text-lg">Prénom du parent ou tuteur légal</label>
+          <label htmlFor="prenom" className="block mb-2 text-lg">Prénom de l'élève</label>
           <input type="text" id="prenom" name="prenom" required className="w-full p-3 rounded-lg text-navy-900" />
         </div>
         <div>
-          <label htmlFor="nom" className="block mb-2 text-lg">Nom du parent ou tuteur légal</label>
+          <label htmlFor="nom" className="block mb-2 text-lg">Nom de l'élève</label>
           <input type="text" id="nom" name="nom" required className="w-full p-3 rounded-lg text-navy-900" />
         </div>
       </div>
 
-      <div>
-        <label htmlFor="email" className="block mb-2 text-lg">Adresse e-mail (facultatif)</label>
-        <input type="email" id="email" name="email" className="w-full p-3 rounded-lg text-navy-900" />
-      </div>
 
       <div>
         <label htmlFor="telephone" className="block mb-2 text-lg">Numéro de téléphone du parent ou tuteur</label>
@@ -208,6 +204,9 @@ function App() {
         <label htmlFor="niveau" className="block mb-2 text-lg">Niveau souhaité</label>
         <select id="niveau" name="niveau" required className="w-full p-3 rounded-lg text-navy-900">
           <option value="">-- Choisissez un niveau --</option>
+          <option>Petite Section</option>
+         <option>Moyenne Section</option>
+         <option>Grande Section</option>
           <option value="Cp">Cp</option>
           <option value="Ce1">Ce1</option>
           <option value="Ce2">Ce2</option>
