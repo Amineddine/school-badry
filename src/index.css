@@ -1,3 +1,212 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --bone: #f4efe6;
+    --ink: #16233f;
+    --terracotta: #c0654a;
+    --sky: #5b8aa6;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bone);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-feature-settings: 'ss01', 'cv01';
+    overflow-x: hidden;
+  }
+
+  /* French display: serifs want optical sizing + tight tracking at scale */
+  h1,
+  h2,
+  h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 360;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--terracotta);
+    color: var(--bone);
+  }
+
+  /* Lenis smooth scroll */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  /* Honor reduced-motion: show everything, kill motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .reveal-line > span,
+    .hero-line {
+      transform: none !important;
+    }
+    .hero-meta {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .hero-cue {
+      opacity: 1 !important;
+    }
+    .hero-aperture {
+      clip-path: none !important;
+    }
+    .hero-light {
+      animation: none !important;
+    }
+  }
+}
+
+@layer components {
+  /* Editorial section label — « 01 — Le lieu » */
+  .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+
+  /* Hairline rule, the connective tissue of the layout */
+  .hairline {
+    border-color: rgba(22, 35, 63, 0.16);
+  }
+
+  /* Photographs are unified to one grade so the amateur phone shots
+     read as a single, intentional body of work. */
+  .graded {
+    filter: saturate(0.82) contrast(1.04) brightness(1.02) sepia(0.06);
+  }
+
+  .graded-warm {
+    filter: saturate(0.78) contrast(1.05) brightness(1.0) sepia(0.12);
+  }
+}
+
+@layer components {
+  /* ---- Hero entrance: pure CSS, gated by `.hero-ready`. ----
+     CSS animations always run to completion once the class lands, so the
+     headline can never strand at its masked start state. */
+  .hero-line {
+    display: inline-block;
+    transform: translateY(110%);
+  }
+  .hero-ready .hero-line {
+    animation: heroLineUp 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-meta {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .hero-ready .hero-meta {
+    animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-aperture {
+    clip-path: inset(100% 0 0 0);
+  }
+  .hero-ready .hero-aperture {
+    animation: heroAperture 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  }
+
+  .hero-cue {
+    opacity: 0;
+  }
+  .hero-ready .hero-cue {
+    animation: heroFade 1s ease-out 1.2s both;
+  }
+
+  .hero-light {
+    animation: heroDrift 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes heroLineUp {
+    from {
+      transform: translateY(110%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes heroFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes heroFade {
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes heroAperture {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @keyframes heroDrift {
+    to {
+      transform: translate(12%, -8%);
+    }
+  }
+}
+
+@layer utilities {
+  /* Paper grain — barely-there texture so flat bone never reads as flat white */
+  .grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Reveal primitive — set by GSAP/IO; default hidden state */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: transform, opacity;
+  }
+
+  .reveal-line {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+  }
+
+  .reveal-line > span {
+    display: inline-block;
+    transform: translateY(110%);
+    will-change: transform;
+  }
+}

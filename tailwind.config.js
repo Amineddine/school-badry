@@ -4,28 +4,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          300: '#93c5fd',
-          600: '#1e40af',
-          700: '#1e3a8a',
-          800: '#1e3a76',
-          900: '#0f2557'
-        }
-      },
-      animation: {
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        pulse: {
-          '0%, 100%': {
-            opacity: 1,
-            textShadow: '0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #1e40af, 0 0 82px #1e40af, 0 0 92px #1e40af, 0 0 102px #1e40af, 0 0 151px #1e40af',
-          },
-          '50%': {
-            opacity: .9,
-            textShadow: '0 0 4px #fff, 0 0 7px #fff, 0 0 13px #fff, 0 0 26px #1e40af, 0 0 42px #1e40af, 0 0 52px #1e40af, 0 0 62px #1e40af, 0 0 91px #1e40af',
-          },
+        // « La Cour » — Mediterranean editorial palette
+        bone: {
+          DEFAULT: '#F4EFE6', // paper background
+          100: '#FBF8F2',
+          200: '#F4EFE6',
+          300: '#E8E0D2',
         },
+        ink: {
+          DEFAULT: '#16233F', // crest navy, deepened
+          700: '#1E3052',
+          500: '#3A4A68',
+          300: '#8A93A6',
+        },
+        terracotta: {
+          DEFAULT: '#C0654A',
+          600: '#A8503A',
+          300: '#D99A85',
+        },
+        sky: {
+          DEFAULT: '#5B8AA6', // muted Casablanca sky
+          300: '#A9C3D2',
+        },
+      },
+      fontFamily: {
+        serif: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      letterspacing: {},
+      transitionTimingFunction: {
+        cour: 'cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },
